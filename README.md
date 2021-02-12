@@ -15,6 +15,6 @@ If you own a Micromate, you can do it too.
 
 Go to the code directory for source code, to the docs directory for documentation, links and experiences along the way.
 
-Please comment and aks questions.
+Please comment and ask questions.
 
 --Mellvik
