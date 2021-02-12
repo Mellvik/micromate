@@ -9,9 +9,9 @@ If you own a Micromate, you can do it too.
 
 - The PMC 101 has an unused buffered 8bit bidirectional I/O port which can be used to connect an IDE disk or a solid state disk via an IDE adapter.
 - Such use requires only a minor hardware change - a wire and a cut PCB path. Minimal soldering.
-- Hardware docxumewntaiton is available on the net, making the changfes a lot easier than guesswork.
-- And software - BIOS-changes and some tools procvided in this project.
-- Using CF (actually, SD) cards, makes lots of fast storage available for the Micromate. However, CPM3 does not lend itself well to big disks, so - as it turns out - splitting the card into a few 10, 16 or 32 byte logical disks is the optimal way to go. And – in a CP/M3 envcironment, 32 MB is HUGE.
+- Hardware documentaiton is available on the net, making the changes a lot easier than guesswork.
+- And software - BIOS-changes and some tools are provided in this project.
+- Using CF (actually, SD) cards, makes lots of fast storage available for the Micromate. However, CPM3 does not lend itself well to big disks, so - as it turns out - splitting the card into a few 10, 16 or 32 byte logical disks is optimal. And – in a CP/M3 environment, 32 MB is HUGE. Using a SD card larger than 128MB is a waste.
 
 Go to the code directory for source code, to the docs directory for documentation, links and experiences along the way.
 
