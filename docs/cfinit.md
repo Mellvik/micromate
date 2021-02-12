@@ -1,4 +1,4 @@
-CFinit.asm
+# CFinit.asm
 
 CFinit was first created to dump the Indentity (ID) parameters from CFcards connected via IDE to a Z80 computer. Grant Searle's Format128.asm was the convenient starting point (and Searle's Z80 design was the first machine it ran on).
 As my Micromate project evolved, a more comprehensive diagnostic tool was needed, and CFinit grew into just that - a comprehensive diag tool.
@@ -24,14 +24,14 @@ The commands:
 - The Y command will reset the CF card to 16 bit mode. Useful for cards that store the mode, to make the useful on non-8bit systems that never initializes word width. Turn off the machine and remove the card immediately after issuing this command to make sure it doesn't accidentally make it back to 8 bit mode.
 - X or Q exits the program. Entering ^C when the program prompts for input does the same.
 
-The CFinit.asm source is set up to be cross assembled using zasm (from GitHub). I use the following command line to assemble:
-zasm -uwyx --dotnames cfinit.asm
+The CFinit.asm source is set up to be cross assembled using zasm (from GitHub - https://github.com/andrewrk/zasm.git). I use the following command line to assemble:
+`zasm -uwyx --dotnames cfinit.asm`
 
 For simplicity I use PIP to transfer the hex file to the Micromate:
-pip cfinit.hex=con:
+`pip cfinit.hex=con:`
 and then just paste the hex file into Minicom. Make sure the character delay in Minicom (^AT) is set to 3 or 4 before sending files this way.
 Then convert the file to .COM using HEXCOM or LOAD in the CP/M system.
-
+```
 CP/M V3.0 Loader
 Copyright (C) 1982, Digital Research
 
@@ -63,8 +63,9 @@ U - set drive unit for I/O
 X or Q - Exit program
 
 # 
-
-———
+```
+The above example is accessing an SD card via a IDE interrnfacve. The one below is accessing a CF card.
+```
 A>cfinit
 CF card utility program
 Read CF data OK.
@@ -73,4 +74,4 @@ Read CF data OK.
  Firmware: DH X.430
  Model: SanDisk SDCFJ-512                       
  LBA Size: 000F45F0
-
+```
