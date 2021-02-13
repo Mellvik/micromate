@@ -13,7 +13,9 @@ The mod (red) is required because there is no /CS signal to send to the IDE inte
 The next challenge is to create a cable with the appropriate connections. My prototype looks messy - and has taken quite a few beatings along the way, but still works. BTW - make sure you cut a somewhat longer cable than this, although not excessively long in case you want to hide the device inside the chassis later. 
 ![Dataport to IDE cable](https://github.com/Mellvik/micromate/blob/main/docs/img/IMG_6582.jpeg)
 
-The connections are listed in the table below. Note the pull-up resistors, possibly not required but a cheap insurance against possible (and obscure) problems. I chose 1.5 Kohm resistors, anything from 500ohms to 3 Kohm should be fine. For reference and comparison, this schematric is useful: [Z80 CPM SBC Version C - REV D](https://easyeda.com/peabody1929/CPM_Z80_Board_REV_B_copy-76313012f79945d3b8b9d3047368abf7)
+The connections are listed in the table below. Note the pull-up resistors, possibly not required but a cheap insurance against possible (and obscure) problems. I chose 1.5 Kohm resistors, anything from 500ohms to 3 Kohm should be fine. For reference and comparison, this schematic is useful: [Z80 CPM SBC Version C - REV D](https://easyeda.com/peabody1929/CPM_Z80_Board_REV_B_copy-76313012f79945d3b8b9d3047368abf7)
+![Connection list](https://github.com/Mellvik/micromate/blob/main/docs/img/Connection%20list.png)
+
 
 ## IDE adapter
 Any IDE drive may be connected to the cable, but there may not be enough power to drive them. I have only used CF- and SD cards.
