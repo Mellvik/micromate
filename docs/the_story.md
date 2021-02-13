@@ -6,9 +6,10 @@ My opening of this pandora box in the fall of 2016 ignited a series of events th
 
 I had almost forgotten the Micromate. An 8-bit Z80-based computer running the CPM3 operating system and played an important role in the early days of the company I started in the early 80s. As I lifted it out of the box, where it had been resting – accompanied in the company of diskettes, cables and other computers whose story are told elsewhere, memories flowed.
 
-But I was not in the mood for reminiscing. Rather, the intent of opening the box was to check whether it contained something worth keeping before ditching it. Still, the little Micromate, small for its time and age, looked exactly like new, and just firing it up became too tempting. I needed a 220/110V adapter. It was in the box. I needed something to connect to the serial port. I didn't have that. Serial ports disappeared from the computers I'd been using 10+ years before. I decided I didn't need it. Having a 5 ¼ in floppy drive as its sole storage mechanism it would be easy to hear if the machine still worked. There were plenty of boot floppies to choose from - 3 boxes, plus a stack I ha recovered from a different box the year before.
+But I was not in the mood for reminiscing. Rather, the intent of opening the box was to check whether it contained something worth keeping before ditching it. Still, the little Micromate, small for its time and age, looked exactly like new, and just firing it up became too tempting. I needed a 220/110V adapter. It was in the box. I needed something to connect to the serial port. I didn't have that. Serial ports disappeared from the computers I'd been using 10+ years before. I decided I didn't need it. Having a 5 ¼ in floppy drive as its sole storage mechanism it would be easy to hear if the machine still worked. There were plenty of boot floppies to choose from - 3 boxes, plus a stack I had recovered from a different box the year before.
 
-Power up - LED comes on, floppy drive making noises. Yes, the Micromate works. I just could not throw it away, I had to find out more, maybe reminisce a little anyway.
+Power up - LED comes on, floppy drive making noises. Yes, the Micromate works. I just could not throw it away, I had to find out more, at least reminisce a little...
+![The Micromate](./img/IMG_6585.jpeg)
 
 ## Genesis
 
