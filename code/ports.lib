@@ -1,0 +1,112 @@
+ ;              'PORTS.LIB'
+ ;              ' Copyright (C), 1983   Personal Micro Computers, Inc.'
+ ;              ' 475 Ellis St. Mountain View, CA  94304'
+ ;              ' version 3.0       1 Oct. 1983'
+
+
+ ;04/21/83      created
+ ;06/06/83      no changes
+ ;10/01/83      added Ports for Hard Disk
+ ;01/10/2021	HS: Removed old HD defines, added IDE/CF defines
+
+
+ ;      *****************************************************
+ ;      *                                                   *
+ ;      *       NOTE:                                       *
+ ;      *                                                   *
+ ;      *       DO NOT MODIFY ANY CODE IN THIS MODULE       *
+ ;      *                                                   *
+ ;      *        PMC CANNOT SUPPORT ANY MODIFICATIONS       *
+ ;      *                                                   *
+ ;      *****************************************************
+
+
+ ;      -PMC 101- Port Definitions
+
+ ; Direct Data port addresses - for IDE/CFdisk access
+ ;
+CF$DATA         EQU    00
+CF$FEATURES     EQU    01
+CF$ERROR        EQU    01
+CF$SECCOUNT     EQU    02
+CF$SECTOR       EQU    03
+CF$CYL$LOW      EQU    04
+CF$CYL$HI       EQU    05
+CF$HEAD         EQU    06; actually C/D/H, but C/D are mostly irrelevant or otherwise 0
+			; NOTE: The number is HEADS-1 (max-head), not head count.
+CF$STATUS       EQU    07
+CF$COMMAND      EQU    07
+CF$REQUEST$SENSE EQU   03
+CF$LBA0         EQU    03
+CF$LBA1         EQU    04
+CF$LBA2         EQU    05
+CF$LBA3         EQU    06
+
+ ; CF/IDE commands
+ ;
+ ;CF Features
+CF$8BIT         EQU    1
+CF$8BIT$OFF     EQU    81H
+CF$NOCACHE      EQU    82H
+
+ ;CF Commands
+CF$READ$SEC     EQU    20H
+CF$WRITE$SEC    EQU    30H
+CF$SET$FEAT     EQU    0EFH
+CF$RESET        EQU    04H		; Soft reset
+CF$DRIVE$ID     EQU    0ECH		; Identify Drive
+CF$INIT$PARM    EQU    91H		; Initialize Drive Parameters
+					; TO change heads and sectors per track
+
+ ;    I/O Port addresses
+p$fdcmnd        equ 080H        ;WD1797 command
+p$fdstat        equ 080H        ;       status
+p$fdtrack       equ 081H        ;       track
+p$fdsector      equ 082H        ;       sector
+p$fddata        equ 083H        ;       data
+
+p$select        equ 084H        ;       select 
+                                ;               set b6 for Single Density
+                                ;               res b6 for Double Density
+                                ;               set b5 for Motor On
+                                ;               res b5 for Motor off
+                                ;               set b3 for drive #4 (D)
+                                ;               set b2 for drive #3 (C)
+                                ;               set b1 for drive #2 (B)
+                                ;               set b0 for drive #1 (A) 
+
+p$TRM$data      equ 088H        ;Zilog DART     Channel A data
+p$MDM$data      equ 089H        ;                       B data
+p$TRM$stat      equ 08AH        ;                       A status
+p$MDM$stat      equ 08BH        ;                       B status
+
+p$cent$data     equ 08CH        ;Centronics parallel data
+p$cent$stat     equ 08CH        ;                    status 
+centronics$mask equ 0011$0000b  ;                    desired status mask                
+                                ;       b7 res = Busy
+                                ;       b6 res = Paper Empty
+                                ;       b5 res = Printer Selected
+                                ;       b4 res = not Fault
+
+p$boot          equ 090H        ;PROM   OUT any bit to Phantom boot EPROM out
+p$unboot        equ 091H        ;       OUT any bit to enable boot EPROM
+
+p$bankselect    equ 092H        ;Bank select    res all bits for primary bank
+                                ;               set b7 for alternate 64K bank
+                                ;               set b2 for upper 32K
+                                ;               res b2 for lower 32K
+                                ;               Bank is from 4000H to BFFFH
+
+p$baud          equ 093H        ;Baud rate      Upper nibble = A channel
+                                ;               Lower nibble = B channel
+                                ;               see Modebaud.lib for definition
+
+p$getbank       equ 094H        ;read bank select port
+P$getbaud       equ 095H        ;read baud rate port
+
+p$rtc           equ 09CH        ;Zilog CTC      ch0     Real Time Clock
+p$ctc1          equ 09DH        ;               ch1     Reserved
+p$index         equ 09EH        ;               ch2     Disk Drive Index Pulse
+P$ctc3          equ 09FH        ;               ch3     User available
+
+

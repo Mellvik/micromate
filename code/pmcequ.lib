@@ -1,0 +1,204 @@
+ ;              'PMCequ.LIB'
+ ;              ' Copyright (C), 1983   Personal Micro Computers, Inc.'
+ ;              ' 475 Ellis St. Mountain View, CA  94304'
+ ;              ' version 3.0       1 Oct. 1983'
+
+
+ ;04/21/83      created
+ ;06/06/83      added Parity mask conditional
+ ;10/01/83      added equates for Hard Disk
+ ;01/10/2021	HS - removed old HD stuff, added IDE/CFcard defines
+
+
+true            equ -1
+false           equ not true
+
+CTS$protocol    equ false       ;True = CTS protocol enabled    
+DSR$protocol    equ false       ;True = DSR protocol enabled
+
+Parity$Mask     equ false       ;True = Parity bit masked from 
+                                ;        TERMINAL & MODEM input
+
+ ;      *****************************************************
+ ;      *                                                   *
+ ;      *       NOTE:                                       *
+ ;      *                                                   *
+ ;      *       DO NOT MODIFY ANY CODE IN THIS MODULE       *
+ ;      *                                                   *
+ ;      *        PMC CANNOT SUPPORT ANY MODIFICATIONS       *
+ ;      *                                                   *
+ ;      *****************************************************
+ ;      -PMC 101- Misc Values
+
+ ;   ASCII
+
+CR              equ 0dh
+LF              equ 0ah
+bdos            equ 0005h
+bell            equ 7
+Bkspc           equ 8
+ctlQ            equ 'Q'-'@'
+ctlS            equ 'S'-'@'
+space           equ 20H
+Pgm             equ '3'
+Vrs             equ '0'
+
+
+
+ ;      -PMC 101- Memory variables
+
+Bank0$cmd       equ     00h     ;turns on Bank  0
+Bank1$cmd       equ     81h     ;               1
+Bank2$cmd       equ     82h     ;               2
+
+comon           equ 0C000h      ;physical adr of Common memory
+window          equ 4000h       ;physical adr of start of bank window
+sys$bank        equ 0           ;CP/M system bank
+tpa             equ 100h        ;TPA begins at this adr
+tpa$bank        equ 1           ;TPA located in this bank
+ccp             equ 0100h       ;CCP gets loaded into the TPA at this adr
+ccp$length      equ 0C80h       ;length of CCP.com
+ccp$ld$adr      equ window*2    ;CCP stored at this adr
+ccp$bank        equ 3           ;CCP stored in this bank
+
+
+ ;      -PMC 101- Device Variables
+
+max$devices     equ 2           ;maximum I/O devices (0,1,2)
+
+
+ ;      -PMC 101- Real Time Clock Variables
+
+MaxFrc          equ 62          ;RTC pps 62*16.128ms=.999936sec
+RTCcnt          equ 252         ;RTC CTC ch0 count
+
+ ;	IDE/CF defines in ports.lib
+
+ ;      -PMC 101- Floppy Disk Variables
+
+ ;   Misc
+
+max$drive       equ 4           ;max possible number of physical drives
+SctCnt          equ 5           ;Physical sectors per track
+retries         equ 10          ;disk retry quantity
+IdxCnt          equ 10          ;index hole count to drive motor time out
+Seldly          equ 102         ;drive Select/motor on delay    =504ms
+Sekdly          equ 4           ;head settle delay              =19ms
+dpb$length      equ 18          ;fixed length of a DPB +1 for PMC extension
+trans$length    equ 37          ;Max length of any translation table
+
+ ;   Select commands
+
+DrvA            equ 001H        ;Drive select bit set
+DrvB            equ 002H
+DrvC            equ 004H
+DrvD            equ 008H
+
+MOTbit          equ 5           ;MOTOR on bit   (Select)
+MOTon           equ 020H        ;motor on bit set
+DENbit          equ 6           ;DENSITY bit    (Select)
+SDen            equ 040H        ;Single Density enable bit set
+
+DrvAon          equ DrvA+MOTon  ;drive A + motor on bit set
+DrvBon          equ DrvB+MOTon
+DrvCon          equ DrvC+MOTon
+DrvDon          equ DrvD+MOTon
+
+ ;   FDC commands
+
+Homcmd          equ 000H        ;TYP I   6Ms step, no verify, no HLD
+HomVcmd         equ 004H        ;TYP I   6Ms step, verify, no HLD
+Sekcmd          equ 010H        ;    I   6Ms step, no verify, no HLD
+SekVCmd         equ 014H        ;    I   6Ms step, verify, no HLD
+RDcmd           equ 088H        ;    II  single Sector, no Side test, no HLD
+RDMcmd          equ 098H        ;    II  mult sector, IBM fmt, HLD
+WRcmd           equ 0A8H        ;    II  single sector, no side test no HLD
+WRTcmd          equ 0F0H        ;    III write track
+IDcmd           equ 0C0H        ;    III no HLD
+FRCcmd          equ 0D0H        ;    IV  clear previous Cmd, no int
+
+SIDbit          equ 1           ;SIDE bit
+Sid2            equ 002H        ;Side Select bit set
+
+
+ ;      -PMC 101-  Drive TYPE conversion variables
+
+  ;Format Types
+
+  ;                        xx
+Type0           equ 0000$0000b  ;Double Sided  Double Density
+Type1           equ 0000$0001b  ;Double Sided  Single Density
+Type2           equ 0000$0010b  ;Single Sided  Double Density
+Type3           equ 0000$0011b  ;Single Sided  Single Density
+Type?           equ 1111$1111b  ;Undefined type
+
+  ;Head Switching types
+
+  ;                      xx
+Sct$sw          equ 0000$0000b  ;Switch head on sector count
+Trk$sw          equ 0000$0100b  ;Switch head on track count
+Odd$sw          equ 0000$1000b  ;Switch to head 1 on Odd track numbers
+Evn$sw          equ 0000$1100b  ;Switch to head 1 on Even track numbers
+
+  ;Track# for head switching (Used with Trk$sw only)
+
+  ;                   xx
+Trk34           equ 0000$0000b  ;Switch to head 1 if Track >= 34
+Trk35           equ 0001$0000b  ;                             36
+Trk40           equ 0010$0000b  ;                             41
+Trk80           equ 0011$0000b  ;                             81
+
+  ;                  x
+Side0first      equ 0000$0000b  ;Start with Side 0 first 
+Side1first      equ 0100$0000b  ;Start with Side 1 first 
+
+
+  ;Sector# for Head switching (Used with Sct$sw only)
+
+  ;                 xxxx
+Sct6            equ 0000$0000b  ;Switch to head 1 if sector >=  6
+Sct7            equ 0001$0000b  ;                               7
+Sct8            equ 0010$0000b  ;                               8
+Sct9            equ 0011$0000b  ;                               9
+Sct10           equ 0100$0000b  ;                               10
+Sct11           equ 0101$0000b  ;                               11
+Sct12           equ 0110$0000b  ;                               12
+Sct13           equ 0111$0000b  ;                               13
+Sct14           equ 1000$0000b  ;                               14
+Sct15           equ 1001$0000b  ;                               15
+Sct16           equ 1010$0000b  ;                               16
+Sct17           equ 1011$0000b  ;                               17
+Sct18           equ 1100$0000b  ;                               18
+Sct19           equ 1101$0000b  ;                               19
+Sct20           equ 1110$0000b  ;                               20
+Sct21           equ 1111$0000b  ;                               21
+
+
+  ;Conversion Drive Types
+
+PMC101d         equ Type0+Sct$sw+Sct6   ;1024x 5x40     Ds Dd
+Morrow2         equ Type0+Odd$sw        ;1024x 5x40     Ds Dd
+InterSystems1   equ Type0+Sct$sw+Sct11  ; 512x10x40     Ds Dd
+Televideo802    equ Type0+Sct$sw+Sct19  ; 256x18x40     Ds Dd   
+HP125           equ Type0+Odd$sw        ; 256x16x33     Ds Dd
+Sanyo           equ Type0+Odd$sw        ; 256x16x40     Ds Dd
+Kaypro4         equ Type0+Odd$sw        ; 512x10x40     Ds Dd
+DatMac2         equ Type0+Odd$sw        ; 512x10x40     Ds Dd
+
+PMC101s         equ Type2               ;1024x 5x40     Ss Dd
+Morrow1         equ Type2               ;1024x 5x40     Ss Dd
+Osborne2        equ Type2               ;1024x 5x40     Ss Dd
+Kaypro          equ Type2               ; 512x10x40     Ss Dd
+InterSystems2   equ Type2               ; 512x10x40     Ss Dd
+Dec             equ Type2               ; 512x 9x40     Ss Dd
+IBM             equ Type2               ; 512x 8x40     Ss Dd
+Xerox2          equ Type2               ; 256x17x40     Ss Dd
+Z37             equ Type2               ; 256x16x40     Ss Dd
+DatMac1         equ Type2               ; 128x26x40     Ss Dd
+
+Osborne1        equ Type3               ; 256x10x40     Ss Sd
+Xerox1          equ Type3               ; 128x18x40     Ss Sd
+Omikron         equ Type3               ; 128x18x40     Ss Sd
+Cromemco        equ Type3               ; 128x18x40     Ss Sd
+
+

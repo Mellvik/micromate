@@ -1,0 +1,190 @@
+M>submit bios
+
+M>RMAC SCB $PZ SZ
+CP/M RMAC ASSEM 1.1
+0000
+001H USE FACTOR
+END OF ASSEMBLY
+
+M>RMAC BNKBIOS3 $PZ SZ
+CP/M RMAC ASSEM 1.1
+0A36
+037H USE FACTOR
+END OF ASSEMBLY
+
+M>RMAC DISKIO $PZ SZ
+CP/M RMAC ASSEM 1.1
+0283
+02FH USE FACTOR
+END OF ASSEMBLY
+
+M>RMAC DISKIOH $PZ SZ
+CP/M RMAC ASSEM 1.1
+00B1
+02BH USE FACTOR
+END OF ASSEMBLY
+
+M>LINK BNKBIOS3[B]=BNKBIOS3,SCB,DISKIO,DISKIOH
+LINK 1.31
+
+@ADRV    0F0C   @RDRV    0F0D   @TRK     0F0E   @SECT    0F10   
+@DMA     0F12   @CBNK    03FA   @DBNK    0F14   @TYPE    0F0B   
+PDEC     05C8   PMSG     0592   PDERR    05A4   FWRITE   0F5B   
+FREAD    0F50   FLOGIN   0F36   FINIT    0F36   FHWRIT   11D8   
+FHREAD   11D4   FHLOGI   11B9   FHINIT   11B9   @COVEC   FE24   
+@CIVEC   FE22   @AOVEC   FE28   @AIVEC   FE26   @LOVEC   FE2A   
+@MXTPA   FE62   @BNKBF   FE35   @SEC     FE5C   @DATE    FE58   
+@CRDMA   FE3C   @CRDSK   FE3E   @VINFO   FE3F   @RESEL   FE41   
+@FX      FE43   @USRCD   FE44   @MLTIO   FE4A   @ERMDE   FE4B   
+@ERDSK   FE51   @MEDIA   FE54   @BFLGS   FE57   @HOUR    FE5A   
+@MIN     FE5B   RWDON    044A   
+
+ABSOLUTE     0000
+CODE SIZE    049C (0000-049B)
+DATA SIZE    0D6A (0500-1269)
+COMMON SIZE  0000
+USE FACTOR     18
+
+M>ERA SCB.REL
+M>ERA BNKBIOS3.REL
+M>ERA DISKIO.REL
+M>ERA DISKIOH.REL
+M>ERA BNKBIOS3.SYM
+M>GENCPM AUTO DISPLAY
+
+
+CP/M 3.0 System Generation
+Copyright (C) 1982, Digital Research
+
+Default entries are shown in (parens).
+Default base is Hex, precede entry with # for decimal
+
+Use GENCPM.DAT for defaults (Y) ? 
+
+Create a new GENCPM.DAT file (N) ? 
+
+Display Load Map at Cold Boot (N) ? 
+
+Number of console columns (#80) ? 
+Number of lines in console page (#24) ? 
+Backspace echoes erased character (N) ? 
+Rubout echoes erased character (Y) ? 
+
+Initial default drive (A:) ? 
+
+Top page of memory (FF) ? 
+Bank switched memory (Y) ? 
+Common memory base page (C0) ? 
+
+Long error messages (Y) ? 
+
+Accept new system definition (Y) ? 
+
+Setting up Allocation vector for drive N:
+
+*** Bank 1 and Common are not included ***
+*** in the memory segment table.       ***
+
+Number of memory segments (#3) ? 
+
+CP/M 3 Base,size,bank (7F,41,00)
+
+Enter memory segment table:
+ Base,size,bank (8D,33,03) ? 
+ Base,size,bank (40,41,00) ? 
+
+ERROR:  Memory conflict - segment trimmed.
+ Base,size,bank (40,3F,00) ? 
+ Base,size,bank (40,40,07) ? 
+
+ CP/M 3 Sys    7F00H 4100H  Bank 00
+ Memseg No. 00 8D00H 3300H  Bank 03
+ Memseg No. 01 4000H 3F00H  Bank 00
+ Memseg No. 02 4000H 4000H  Bank 07
+
+Accept new memory segment table entries (Y) ? 
+
+Setting up directory hash tables:
+ Enable hashing for drive A: (Y) ? 
+ Enable hashing for drive B: (Y) ? 
+ Enable hashing for drive C: (Y) ? 
+ Enable hashing for drive M: (Y) ? 
+ Enable hashing for drive N: (Y) ? 
+
+Setting up Blocking/Deblocking buffers:
+
+The physical record size is 0400H:
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 003FH, Other banks = 002DH
+
+               Number of directory buffers for drive A: (#1) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 003AH, Other banks = 002DH
+
+               Number of data buffers for drive A: (#1) ? 
+               Allocate buffers outside of Common (Y) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 003AH, Other banks = 0029H
+
+               Number of directory buffers for drive B: (#0) ? 
+               Share buffer(s) with which drive (A:) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 003AH, Other banks = 0029H
+
+               Number of data buffers for drive B: (#0) ? 
+               Share buffer(s) with which drive (A:) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 003AH, Other banks = 0029H
+
+               Number of directory buffers for drive C: (#0) ? 
+               Share buffer(s) with which drive (A:) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 003AH, Other banks = 0029H
+
+               Number of data buffers for drive C: (#0) ? 
+               Share buffer(s) with which drive (A:) ? 
+
+The physical record size is 0200H:
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 003AH, Other banks = 0029H
+
+               Number of directory buffers for drive M: (#15) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 001CH, Other banks = 0029H
+
+               Number of data buffers for drive M: (#9) ? 
+               Allocate buffers outside of Common (Y) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 001BH, Other banks = 0017H
+
+               Number of directory buffers for drive N: (#0) ? 
+               Share buffer(s) with which drive (M:) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 001BH, Other banks = 0017H
+
+               Number of data buffers for drive N: (#0) ? 
+               Share buffer(s) with which drive (M:) ? 
+
+     Available space in 256 byte pages:
+     TPA = 00F5H, Bank 0 = 001BH, Other banks = 0017H
+
+
+Accept new buffer definitions (Y) ? 
+
+ BNKBIOS3 SPR  FB00H  0500H
+ BNKBIOS3 SPR  AB00H  1500H
+ RESBDOS3 SPR  F500H  0600H
+ BNKBDOS3 SPR  7D00H  2E00H
+
+*** CP/M 3.0 SYSTEM GENERATION DONE ***
+M>
