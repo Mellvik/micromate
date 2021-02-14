@@ -12,6 +12,7 @@ If you own a Micromate, you can do it too.
 - Hardware documentaiton is available on the net, making the changes a lot easier than guesswork.
 - And software - BIOS-changes and some tools are provided in this project.
 - Using CF (actually, SD) cards, makes lots of fast storage available for the Micromate. However, CPM3 does not lend itself well to big disks, so - as it turns out - splitting the card into a few 10, 16 or 32 byte logical disks is optimal. And – in a CP/M3 environment, 32 MB is HUGE. Using a SD card larger than 128MB is a waste.
+- TODO: The Micromate Floppy Disk Controller can (technically) handle 3.5" 720k floppies and the GOTEK floppy emulator when run in 720K mode. However, since IBM 'screwed up' the floppy cabling 'standard' with the PC, some cabling mods are required. Admittedly, now that a solid state hard disk available, this project is less interesting. Still its (potential) simplicity is a temptation.
 
 Go to the code directory for source code, to the docs directory for documentation, links and experiences along the way.
 
