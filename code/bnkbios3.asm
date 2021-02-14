@@ -12,6 +12,7 @@
  ;06/06/83	added Parity mask conditional
  ;10/01/83	added Hard Disk Driver
  ;02/07/84	added DRI patches 9-14 to INITDIR,DIRLBL,HELP,CCP,BDOS,PATCH
+ ;12/20/2020	HS; Started CF/IDE driver development
  ;??/??/??
 
 
@@ -639,7 +640,7 @@ bank1:	out	p$bankselect	; put new memory control byte
  ;All four dph's must be set for GENCPM to allocated the necessary buffers
 
 @dtbl
-	dw	dph0 ,dph1 ,dph2 ,00000 ;Drives A-D (5")
+	dw	dph0 ,dph1 ,dph2 ,dph3  ;Drives A-D (5")
 	dw	00000,00000,0000 ,00000 ;Drives E-H 
 	dw	00000,00000,00000,00000 ;Drives I-L 
 	dw	dph12,dph13,00000,00000 ;Drives M-P (Hard)
@@ -708,18 +709,17 @@ dpbHD:
 	DW	 2749,2047	 ; DSM,DRM		 DRM=2048	  
 	DB	 255,255	 ; AL0,AL1		 DRM+1/32 bits hi 
 	DW	 8000h,1	 ; CKS,OFF		 DRM+1/4, keep system trk just in case 
-	DB	 2,3		 ; PSH,PHM - 512bytes/sec
+	DB	 2,3		 ; PSH,PHM - 512 bytes/sec
 	db	 'A'
 
 dpbHDB:
-	; since we're now using LBA addressing, the SPT is not important.
-	; the important numbers are 5499 (5500-1) and 2047, the former is
-	; the size of the drive in 4k blocks, the latter is the size of the 
-	; directory (# of directory entries) on the drive. 2047 is OK for a 12M
-	; drive, should be larger on this 22M drive.
-	DW	320		; 128 byte SPT	 SEC=9sptx4hdsx8logical
+	; Since we're using LBA addressing, the SPT is not important.
+	; The important numbers are 5499 (5500-1) and 2047, the former is
+	; the size of the drive in 4k blocks, the latter is the # of directory 
+	; entries. 2047 is OK for a 12M drive, should be larger on this 22M drive.
+	DW	320		; 128 byte SPT
 	DB	5,31,1		; BSH,BLM,EXM		BLS=4096	 
-	DW	5499,2047	; DSM,DRM		DRM=2048	 
+	DW	5499,2047	; DSM,DRM		DRM=2048 - should be ~3000	 
 	DB	255,255		; AL0,AL1		DRM+1/32 bits hi 
 	DW	8000h,0		; CKS,OFF		DRM+1/4		 
 	DB	2,3		; PSH,PHM				 
@@ -1021,7 +1021,7 @@ xdph12:
 	db	00h,0					;drive #0, ID=0
 dph12:	dw	0000					;no trans for HD
 	db	0,0,0,0,0,0,0,0,0,0
-	dw	dpbHD,0000,al12,0FFFEh,0FFFEh,0FFFEh	;no ck12 vector
+	dw	dpbHD,0000,al12,0FFFEh,0FFFEh,0FFFEh
 	db	0
 
 xdph13:
@@ -1029,7 +1029,7 @@ xdph13:
 	db	1,0					;drive #1, ID=0
 dph13:	dw	0000					;no trans for HD
 	db	0,0,0,0,0,0,0,0,0,0
-	dw	dpbHDB,0000,0FFFEH,0FFFEh,0FFFEh,0FFFEh	   ;no ck12 vector
+	dw	dpbHDB,0000,0FFFEH,0FFFEh,0FFFEh,0FFFEh
 	db	0
 
 
