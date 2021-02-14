@@ -4,7 +4,7 @@ Firing up the Micromate (or any other old, serial based computer) is only the fi
 ## In short
 - A RaspberryPi zero is cheap and practical for serial connections. 
 - The connections must be RS232 level, not TTL. A 'Serial Hat' for the Pi and a USB-RS232 adapter are good choices. Or 2 USB-RS232 adapters.
-- The console port and the modem port are wired differently on the Micromate. The console port is wired as DCE, Data Communications Equipment, the Modem port is a DTE.
+- The console port and the modem port are wired differently on the Micromate. The console port is wired as DCE (Data Communications Equipment), the Modem port is a DTE.
 - Use the Micromate `config` program to set the speeds, turn off hardware handshake and enable 8 bit communications.
 - Minicom is good for connecting to the Micromate because you can set a per character delay. This is required for reliable transfer of text files into the system until you have a working communication program running.
 - Kermit is the most flexible and reliable comms-program. Not the most efficient and quite complicated because of all the options, but IMHO still the best.
@@ -26,7 +26,7 @@ Unfortunately (but unsurprising) I had forgotten all about the Micromate hardwar
 - The Linux Screen program is a convenient companion when connecting from the RaspberryPi (or other Linux/Unix system) via serial ports. However, in this case Minicom turns out to be a better option. It does something Screen cannot do: Injecting a per character delay - which you are going to need, at least temporarily. Without the delay, the Micromate will lose serial data every now and then, even at 9600 bps. So - install Minicom and set the per char delay (in the terminal settings) to 3ms.
 
 ## Kermit to the rescue
-Modem7 - a vintage communication program - was installed on the Micromate, but I could not get it to work reliably. I eventually gave up and decided I needed Kermit, which is more robust and flexible. The question was how to get Kermit across to the Micromate without a comms-program. I discovered later that the Kermit-80 manual has a recipe for such situations, which I would probably use if I had to do it again. Still, the chosen method was reasonably straightforward.
+Modem7 - a vintage communication program - was installed on the Micromate, but I could not get it to work reliably. I eventually gave up and decided I needed Kermit, which is more robust and flexible. The question was how to get Kermit across to the Micromate without a comms-program. I discovered later that the [Kermit-80 manual](ftp://ftp.columbia.edu/kermit/cpm80/cpkerm.pdf) has a recipe for such situations, which I would probably use if I had to do it again. Still, the chosen method was reasonably straightforward.
 
 - Kermit works best if configured for the machine it's running on. This means linking the final program on the target machine. In order to do that, three binary files must be transferred to the target system - the Kermit main module, the Kermit Micromate adaption module and the linker. 
 - All three are available for download in hex format, are binaries and need to be converted to ASCII in order to be transferred.
