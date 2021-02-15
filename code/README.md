@@ -5,7 +5,7 @@ These files come from the PMC Hard Disk distribution for the Micromate. The foll
 - pmcequ.lib
 - ports.lib
 
-The rest are unchanged. When editing, make sure to keep the DOS file format (CR+LF line endings). The GENCPM.DAT file is probably different from the one in the floppy setup.
+The rest are unchanged. When editing, make sure to keep the DOS file format (CR+LF line endings). The GENCPM.DAT file is probably different from the one in the floppy setup. The entire disk collection for the Micromate is available from the [Daves Old Computers repository](http://dunfield.classiccmp.org/img/index.htm)
 
 To build the new system, run `SUBMIT BIOS` on the target system, and make sure you have RMAC, LINK and GENCPM available on the disk, in addition to the BDOS SPR files.
 
