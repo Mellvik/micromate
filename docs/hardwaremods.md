@@ -43,5 +43,5 @@ It is possible to pull the ribbon cable through the printer port opening in the 
 Convenient, at least while testing, and in case you want to have access to the card - to move data back and forth.
 
 ## Testing
-Cable ready and device plugged in, you're ready to test. Most IDE adapters have LEDs for alt least activity, so keep and eye on that when doing the first tests. Fire up the Micromate and run the CFinit program. The activity LDE should emit a short blink just after program load. If it does, you're almost there. If the data printed any the program, make sense, you're ready to pop the cork.
+Cable ready and device plugged in, you're ready to test. Most IDE adapters have LEDs for alt least activity, so keep and eye on that when doing the first tests. Fire up the Micromate and run the CFinit program. The activity LDE should emit a short blink just after program load. If it does, you're almost there. If the data printed by the program make sense, you're ready to pop the cork.
 
